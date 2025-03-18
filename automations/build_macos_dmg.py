@@ -31,10 +31,10 @@ PROJECT_VERSION = pyproject_toml["project"]["version"]
 def build_dmg():
   """Function that build the dmg based on the .app package."""
   build_macos_exe.build_using_setup_file()
-  tmp_dist_app_package_path = pathlib.Path(const.PROJECT_ROOT_DIR / f"dist/Open-Source-PyMOL-{PROJECT_VERSION}.app")
+  tmp_dist_app_package_path = pathlib.Path(const.PROJECT_ROOT_DIR / f"build/Open-Source-PyMOL-{PROJECT_VERSION}.app")
   tmp_dmg_build_app_package_path = pathlib.Path(const.PROJECT_ROOT_DIR / f"tmp/Open-Source-PyMOL-{PROJECT_VERSION}.app")
   if not tmp_dist_app_package_path.exists():
-    print(f"Could not find the dist/Open-Source-PyMOL-{PROJECT_VERSION}.app!")
+    print(f"Could not find the build/Open-Source-PyMOL-{PROJECT_VERSION}.app!")
     exit(1)
 
   shutil.copytree(tmp_dist_app_package_path, tmp_dmg_build_app_package_path,
