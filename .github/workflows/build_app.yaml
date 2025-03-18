@@ -44,7 +44,6 @@ jobs:
           source .venv/bin/activate
           python -m pip install wheel setuptools  # setuptools needed for Python >=3.12
           python -m pip install -r requirements.txt
-          python -m pip install cx_freeze
           python -m pip install pyqt5
 
       - name: Build app package
@@ -53,6 +52,7 @@ jobs:
           python automations/my_automator.py setup dev-env
           pip install pre-built/wheel/${{ matrix.arch }}/pymol-3.1.0a0-py3-none-any.whl
           python automations/my_automator.py build app
+          python automations/my_automator.py build dmg
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
