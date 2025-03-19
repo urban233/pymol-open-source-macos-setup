@@ -27,10 +27,17 @@ build_exe_options = {
   ]
 }
 
+bdist_mac_options = {
+  "custom_info_plist": pathlib.Path(PROJECT_ROOT_DIR / "Info.plist")
+}
+
 setup(
   name="Open-Source-PyMOL",
   version=PROJECT_VERSION,
-  options={"build_exe": build_exe_options},
+  options={
+    "build_exe": build_exe_options,
+    "bdist_mac": bdist_mac_options
+  },
   executables=[
     {
       "target_name": "PyMOL",
