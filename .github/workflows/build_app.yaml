@@ -61,5 +61,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: macOS_PyMOL-exe-${{ matrix.os }}-${{ matrix.arch }}
-          path: dist/*
+          name: macOS_PyMOL-DMG-${{ matrix.os }}-${{ matrix.arch }}
+          path: ./*.dmg
