@@ -27,13 +27,11 @@ def build_dmg():
   """Function that build the dmg based on the .app package."""
   build_macos_exe.build_using_setup_file()
   print(os.listdir(pathlib.Path(const.PROJECT_ROOT_DIR / "dist")))
-  tmp_dist_app_package_path = pathlib.Path(const.PROJECT_ROOT_DIR / f"dist/Open-Source-PyMOL-{const.PROJECT_VERSION}.app")
+  tmp_dist_app_package_path = pathlib.Path(const.PROJECT_ROOT_DIR / f"dist/open_source_pymol-{const.PROJECT_VERSION}.app")
   tmp_dmg_build_app_package_path = pathlib.Path(const.PROJECT_ROOT_DIR / f"tmp/Open-Source-PyMOL-{const.PROJECT_VERSION}.app")
   if not tmp_dist_app_package_path.exists():
     print(f"Could not find the {tmp_dist_app_package_path}!")
-    #exit(1)
-  else:
-    tmp_dist_app_package_path = os.listdir(pathlib.Path(const.PROJECT_ROOT_DIR / "dist"))[1]
+    exit(1)
 
   shutil.copytree(tmp_dist_app_package_path, tmp_dmg_build_app_package_path,
                   dirs_exist_ok=True)
