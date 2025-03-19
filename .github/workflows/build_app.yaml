@@ -50,8 +50,7 @@ jobs:
         run: |
           source .venv/bin/activate
           python automations/my_automator.py setup dev-env
-          pip install pre-built/wheel/${{ matrix.arch }}/pymol-3.1.0a0-py3-none-any.whl
-          python automations/my_automator.py build app
+          pip install pre-built/wheel/${{ matrix.arch }}/pymol-*-py3-none-any.whl
           python automations/my_automator.py build dmg
 
       - name: Upload artifact

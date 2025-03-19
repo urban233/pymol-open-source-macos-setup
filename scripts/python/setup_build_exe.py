@@ -1,26 +1,35 @@
+import sys
 import pathlib
 
+import toml
 from cx_Freeze import setup
 
+# <editor-fold desc="Module constants">
+tmp_pyproject_toml = toml.load("../pyproject.toml")
+PROJECT_NAME = tmp_pyproject_toml["project"]["name"]
+PROJECT_VERSION = tmp_pyproject_toml["project"]["version"]
+
+PYTHON_VERSION = f"{sys.version_info.major}.{sys.version_info.minor}"
+SHARED_SUFFIX = f".cpython-{PYTHON_VERSION.replace('.', '')}-darwin.so"
+
 PROJECT_ROOT_DIR = pathlib.Path(__file__).parent.parent
-print(f"This is the project root dir setting currently: {PROJECT_ROOT_DIR}")
+# </editor-fold>
 
 
-# Dependencies are automatically detected, but they might need fine-tuning.
 build_exe_options = {
   "excludes": ["tkinter", "unittest"],
   "includes": ["copy", "encodings", "PyQt5.uic", "pymol.povray", "pymol.parser", "uuid"],
   "include_files": [
     (
-      pathlib.Path(PROJECT_ROOT_DIR / ".venv/lib/python3.11/site-packages/pymol/_cmd.cpython-311-darwin.so"),
-      "./lib/pymol/_cmd.cpython-311-darwin.so"
+      pathlib.Path(PROJECT_ROOT_DIR / f".venv/lib/python{PYTHON_VERSION}/site-packages/pymol" / f"_cmd{SHARED_SUFFIX}"),
+      f"./lib/pymol/_cmd{SHARED_SUFFIX}"
      )
   ]
 }
 
 setup(
   name="Open-Source-PyMOL",
-  version="3.1.0a0",
+  version=PROJECT_VERSION,
   options={"build_exe": build_exe_options},
   executables=[
     {

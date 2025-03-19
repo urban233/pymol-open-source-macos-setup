@@ -182,3 +182,6 @@ cython_debug/
 /alternative_design/convert_to_ico/logo-256.png
 /alternative_design/convert_to_ico/logo.ico
 /alternative_design/icon.iconset/
+/pymol/
+/vendor/
+/tmp/

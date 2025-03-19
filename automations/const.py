@@ -16,6 +16,13 @@
 """
 import sys
 import pathlib
+import toml
 
 PROJECT_ROOT_DIR = pathlib.Path(__file__).parent.parent
 PYTHON_EXECUTABLE = sys.executable
+
+tmp_pyproject_toml = toml.load(
+  pathlib.Path(PROJECT_ROOT_DIR / "pyproject.toml")
+)
+PROJECT_NAME = tmp_pyproject_toml["project"]["name"]
+PROJECT_VERSION = tmp_pyproject_toml["project"]["version"]

@@ -18,21 +18,15 @@ import pathlib
 import shutil
 import subprocess
 
-import toml
-
-import const
 import build_macos_exe
-
-pyproject_toml = toml.load("pyproject.toml")
-PROJECT_NAME = pyproject_toml["project"]["name"]
-PROJECT_VERSION = pyproject_toml["project"]["version"]
+import const
 
 
 def build_dmg():
   """Function that build the dmg based on the .app package."""
   build_macos_exe.build_using_setup_file()
-  tmp_dist_app_package_path = pathlib.Path(const.PROJECT_ROOT_DIR / f"build/open_source_pymol-{PROJECT_VERSION}.app")
-  tmp_dmg_build_app_package_path = pathlib.Path(const.PROJECT_ROOT_DIR / f"tmp/Open-Source-PyMOL-{PROJECT_VERSION}.app")
+  tmp_dist_app_package_path = pathlib.Path(const.PROJECT_ROOT_DIR / f"dist/Open-Source-PyMOL-{const.PROJECT_VERSION}.app")
+  tmp_dmg_build_app_package_path = pathlib.Path(const.PROJECT_ROOT_DIR / f"tmp/Open-Source-PyMOL-{const.PROJECT_VERSION}.app")
   if not tmp_dist_app_package_path.exists():
     print(f"Could not find the {tmp_dist_app_package_path}!")
     exit(1)
