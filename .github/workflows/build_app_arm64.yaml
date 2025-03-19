@@ -52,12 +52,30 @@ jobs:
           python automations/my_automator.py build app
       - name: Rename app package
         run: mv dist/open_source_pymol-3.1.0a0.app dist/Open-Source-PyMOL-3.1.0a0.app
+      - name: Setup NodeJS
+        run: |
+          # Download and install nvm:
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
+          # in lieu of restarting the shell
+          \. "$HOME/.nvm/nvm.sh"
+          # Download and install Node.js:
+          nvm install 22
+          # Verify the Node.js version:
+          node -v # Should print "v22.14.0".
+          nvm current # Should print "v22.14.0".
+          # Verify npm version:
+          npm -v # Should print "10.9.2".
+
       - name: Build DMG
-        uses: urban233/create-dmg-actions@v0.0.2
-        with:
-          dmg_name: 'Open-Source-PyMOL'
-          src_dir: 'dist/Open-Source-PyMOL-3.1.0a0.app'
-          bg_filepath: 'alternative_design/dmg_bg.png'
+        run: |
+          npm install --global create-dmg
+          create-dmg 'dist/Open-Source-PyMOL-3.1.0a0.app'
+#      - name: Build DMG
+#        uses: urban233/create-dmg-actions@v0.0.2
+#        with:
+#          dmg_name: 'Open-Source-PyMOL'
+#          src_dir: 'dist/Open-Source-PyMOL-3.1.0a0.app'
+#          bg_filepath: 'alternative_design/dmg_bg.png'
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
